@@ -134,37 +134,40 @@
             },
             "type": {
               "type": "string",
-              "enum": ["cities"]
+              "enum": [
+                "cities"
+              ]
             }
-          }
+          },
+          "required": ["id", "type"]
         }
-      }
+      },
+      "required": ["data"]
     },
     "relationshipArea": {
       "type": "object",
       "properties": {
         "data": {
           "oneOf": [
-            {
-              "type": "null"
-            },
+            { "type": "null" },
             {
               "type": "object",
               "properties": {
-                "data": {
-                  "type": "object",
-                  "properties": {
-                    "id": { "type": "string" },
-                    "type": {
-                      "enum": ["areas"]
-                    }
-                  }
+                "id": {
+                  "type": "string",
+                  "pattern": "^[A-Z]{7}$",
+                  "description": "Unique identifier of the area object."
+                },
+                "type": {
+                  "enum": ["areas"]
                 }
-              }
+              },
+              "required": ["id", "type"]
             }
           ]
         }
-      }
+      },
+      "required": ["data"]
     },
     "city": {
       "type": "object",

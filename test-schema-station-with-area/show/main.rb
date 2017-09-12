@@ -4,10 +4,10 @@ require 'json'
 require 'jsonapi/parser'
 require 'json-schema'
 
-SCHEMA_PATH = './station_schema_knut.json'
+SCHEMA_PATH = './station_schema.json'
 STATION_FILES = [
-  # './station_with_area.json',
-  './station_without_area.json'
+  './station_with_area.json',
+  # './station_without_area.json'
 ]
 
 WRONG_STATION_FILES = [

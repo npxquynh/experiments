@@ -6,8 +6,9 @@ require 'json-schema'
 
 SCHEMA_PATH = './station_schema_knut.json'
 STATION_FILES = [
-  './station_with_area.json',
-  './station_without_area.json'
+  './station_many.json',
+  # './station_with_area.json',
+  # './station_without_area.json'
 ]
 
 WRONG_STATION_FILES = [
@@ -19,13 +20,14 @@ begin
   STATION_FILES.each do |station_file|
     station = JSON.parse(File.read(station_file))
     puts JSON::Validator.fully_validate(schema, station)
+    # puts JSON::Validator.fully_validate(schema, station, strict: true)
   end
 
   puts "---------"
   puts "ERRORS"
   WRONG_STATION_FILES.each do |station_file|
     station = JSON.parse(File.read(station_file))
-    puts JSON::Validator.fully_validate(schema, station)
+    puts JSON::Validator.fully_validate(schema, station, strict: true)
   end
 rescue JSON::Schema::ValidationError => e
   e.message

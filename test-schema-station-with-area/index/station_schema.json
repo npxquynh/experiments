@@ -56,10 +56,10 @@
                 "type": "string"
               },
               "street_and_number": {
-                "type": ["string", "null"]
+                "type": "string"
               },
               "zip_code": {
-                "type": ["string", "null"]
+                "type": "string"
               },
               "latitude": {
                 "type": "number",
@@ -133,7 +133,9 @@
           "type": "object",
           "properties": {
             "id": {
-              "type": "string"
+              "type": "string",
+              "pattern": "^[A-Z]{5}$",
+              "description": "Unique identifier of the city object."
             },
             "type": {
               "type": "string",
@@ -148,26 +150,25 @@
       "properties": {
         "data": {
           "oneOf": [
-            {
-              "type": "null"
-            },
+            { "type": "null" },
             {
               "type": "object",
               "properties": {
-                "data": {
-                  "type": "object",
-                  "properties": {
-                    "id": { "type": "string" },
-                    "type": {
-                      "enum": ["areas"]
-                    }
-                  }
+                "id": {
+                  "type": "string",
+                  "pattern": "^[A-Z]{7}$",
+                  "description": "Unique identifier of the area object."
+                },
+                "type": {
+                  "enum": ["areas"]
                 }
-              }
+              },
+              "required": ["id", "type"]
             }
           ]
         }
-      }
+      },
+      "required": ["data"]
     },
     "city": {
       "type": "object",
@@ -175,7 +176,7 @@
         "id": {
           "type": "string",
           "pattern": "^[A-Z]{5}$",
-          "description": "Unique identifier of the city object."
+          "description": "Unique identifier of the city object. Has the same value as code."
         },
         "type": {
           "type": "string",
@@ -190,7 +191,8 @@
               "type": "string"
             },
             "code": {
-              "type": "string"
+              "type": "string",
+              "pattern": "^[A-Z]{5}$"
             }
           },
           "required": [
@@ -213,7 +215,7 @@
         "id": {
           "type": "string",
           "pattern": "^[A-Z]{7}$",
-          "description": "Unique identifier of the area object."
+          "description": "Unique identifier of the area object. Has the same value as code."
         },
         "type": {
           "type": "string",
@@ -226,7 +228,8 @@
               "type": "string"
             },
             "code": {
-              "type": "string"
+              "type": "string",
+              "pattern": "^[A-Z]{7}$"
             }
           },
           "required": [

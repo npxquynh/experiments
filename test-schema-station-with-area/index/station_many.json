@@ -1,0 +1,111 @@
+{
+  "jsonapi": { "version": "1.0" },
+  "meta": {
+    "locale": "en"
+  },
+  "data": [
+    {
+      "id": "DEBONZOB",
+      "type": "stations",
+      "attributes": {
+        "code": "DEBONZOB",
+        "name": "Bonn ZOB",
+        "description": "Just a place",
+        "street_and_number": "Somewhere there 1",
+        "zip_code": "12345",
+        "longitude": 1.4,
+        "latitude": 1.5,
+        "time_zone": "Europe/Berlin"
+      },
+      "relationships": {
+        "city": {
+          "data": {
+            "id": "DEBON",
+            "type": "cities"
+          }
+        },
+        "area": {
+          "data": null
+        }
+      }
+    },
+    {
+      "id": "DEBERZOB",
+      "type": "stations",
+      "attributes": {
+        "code": "DEBERZOB",
+        "name": "Berlin ZOB",
+        "description": "A place to be",
+        "street_and_number": "Right over the corner 2",
+        "zip_code": "10557",
+        "longitude": 1.2,
+        "latitude": 1.3,
+        "time_zone": "Europe/Berlin"
+      },
+      "relationships": {
+        "city": {
+          "data": {
+            "id": "DEBER",
+            "type": "cities"
+          }
+        },
+        "area": {
+          "data": {
+            "id": "DEBERBC",
+            "type": "areas"
+          }
+        }
+      }
+    }
+  ],
+  "included": [
+    {
+      "id": "DEBON",
+      "type": "cities",
+      "attributes": {
+        "code": "DEBON",
+        "name": "Bonn"
+      }
+    },
+    {
+      "id": "DEBER",
+      "type": "cities",
+      "attributes": {
+        "code": "DEBER",
+        "name": "Berlin"
+      }
+    },
+    {
+      "id": "DEBONCA",
+      "type": "areas",
+      "attributes": {
+        "code": "DEBONCA",
+        "name": "Bonn Area"
+      },
+      "relationships": {
+        "city": {
+          "data": {
+            "type": "cities",
+            "id": "DEBON"
+          }
+        }
+      }
+    },
+    {
+      "id": "DEBERCA",
+      "type": "areas",
+      "attributes": {
+        "name": "Berlin Area",
+        "code": "DEBERCA"
+      },
+      "relationships": {
+        "city": {
+          "data": {
+            "type": "cities",
+            "id": "DEBER"
+          }
+        }
+      }
+    }
+  ]
+}
