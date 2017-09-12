@@ -1,0 +1,204 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "jsonapi": {
+      "type": "object",
+      "properties": {
+        "version": { "enum": [ "1.0" ] }
+      },
+      "required": [
+        "version"
+      ]
+    },
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "enum": ["stations"]
+          },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "longitude": {
+                "type": "number"
+              },
+              "latitude": {
+                "type": "number"
+              },
+              "street_and_number": {
+                "type": ["string", "null"]
+              },
+              "zip_code": {
+                "type": ["string", "null"]
+              },
+              "time_zone": {
+                "type": "string",
+                "description": "IANA TimeZone name (https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)"
+              },
+              "description": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "name",
+              "longitude",
+              "latitude",
+              "street_and_number",
+              "zip_code",
+              "time_zone",
+              "description"
+            ]
+          },
+          "relationships": {
+            "type": "object",
+            "properties": {
+              "city": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "enum": ["cities"]
+                      },
+                      "id": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              },
+              "area": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "enum": [
+                      "object",
+                      "null"
+                    ]
+                  },
+                  "data": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "enum": [
+                          "areas"
+                        ]
+                      },
+                      "id": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "attributes",
+          "relationships"
+        ]
+      }
+    },
+    "included": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique identifier of the city object."
+              },
+              "type": {
+                "type": "string",
+                "enum": ["cities"]
+              },
+              "attributes": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": ["code", "name"]
+              }
+            }
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+              "description": "Unique identifier of the area object."
+              },
+              "type": {
+                "type": "string",
+                "enum": ["areas"]
+              },
+              "attributes": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": ["code", "name"]
+              },
+              "relationships": {
+                "type": "object",
+                "properties": {
+                  "city": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "enum": [
+                              "cities"
+                            ]
+                          },
+                          "id": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "required": [
+    "jsonapi",
+    "data"
+  ]
+}

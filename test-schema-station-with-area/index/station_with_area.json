@@ -1,0 +1,62 @@
+{
+  "jsonapi": { "version": "1.0" },
+  "meta": {
+    "locale": "en"
+  },
+  "data": [
+    {
+      "type": "stations",
+      "id": "DEBONZOB",
+      "attributes": {
+        "code": "DEBONZOB",
+        "name": "Bonn ZOB",
+        "longitude": 1.4,
+        "latitude": 1.5,
+        "street_and_number": null,
+        "zip_code": null,
+        "time_zone": "Europe/Berlin",
+        "description": "Just a place"
+      },
+      "relationships": {
+        "city": {
+          "data": {
+            "type": "cities",
+            "id": "DEBON"
+           }
+        },
+        "area": {
+         "data": {
+           "type": "areas",
+           "id": "DEBONCA"
+          }
+        }
+      }
+    }
+  ],
+  "included": [
+    {
+      "id": "DEBON",
+      "type": "cities",
+      "attributes": {
+        "code": "DEBON",
+        "name": "Bonn"
+      }
+    },
+    {
+      "id": "DEBONCA",
+      "type": "areas",
+      "attributes": {
+        "name": "Bonn Area",
+        "code": "DEBONCA"
+      },
+      "relationships": {
+        "city": {
+          "data": {
+            "type": "cities",
+            "id": "DEBON"
+          }
+        }
+      }
+    }
+  ]
+}

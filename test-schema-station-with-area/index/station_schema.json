@@ -1,0 +1,254 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "jsonapi": {
+      "type": "object",
+      "properties": {
+        "version": { "enum": [ "1.0" ] }
+      },
+      "required": [
+        "version"
+      ]
+    },
+    "meta": {
+      "type": "object",
+      "properties": {
+        "locale": {
+          "type": "string",
+          "pattern": "^[a-z]{2}$",
+          "description": "2-letter alphanumeric lowercase code, according to ISO 639-1 standard."
+        }
+      },
+      "required": [
+        "locale"
+      ],
+      "additionalProperties": false
+    },
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Z0-9]{8,9}$",
+            "description": "Unique identifier of the station object. Has the same value as the 'code' attribute."
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "stations"
+            ]
+          },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "pattern": "^[A-Z0-9]{8,9}$",
+                "description": "Distribusion code of the station object. Has the same value as the 'id' attribute."
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "street_and_number": {
+                "type": ["string", "null"]
+              },
+              "zip_code": {
+                "type": ["string", "null"]
+              },
+              "latitude": {
+                "type": "number",
+                "pattern": "^(\\-?\\d+(\\.\\d+)?)$"
+              },
+              "longitude": {
+                "type": "number",
+                "pattern": "^(\\-?\\d+(\\.\\d+)?)$"
+              },
+              "time_zone": {
+                "type": "string",
+                "description": "IANA TimeZone name (https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)"
+              }
+            },
+            "required": [
+              "code",
+              "name",
+              "description",
+              "street_and_number",
+              "zip_code",
+              "latitude",
+              "longitude",
+              "time_zone"
+            ],
+            "additionalProperties": false
+          },
+          "relationships": {
+            "type": "object",
+            "properties": {
+              "city": { "$ref": "#/definitions/relationshipCity" },
+              "area": { "$ref": "#/definitions/relationshipArea" }
+            },
+            "required": [
+              "city",
+              "area"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "attributes",
+          "relationships"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "included": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          { "$ref": "#/definitions/city" },
+          { "$ref": "#/definitions/area" }
+        ]
+      }
+    }
+  },
+  "required": [
+    "jsonapi",
+    "meta",
+    "data",
+    "included"
+  ],
+  "additionalProperties": false,
+  "definitions": {
+    "relationshipCity": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string",
+              "enum": ["cities"]
+            }
+          }
+        }
+      }
+    },
+    "relationshipArea": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string" },
+                    "type": {
+                      "enum": ["areas"]
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "city": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Z]{5}$",
+          "description": "Unique identifier of the city object."
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "cities"
+          ]
+        },
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "code": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "code"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "attributes"
+      ],
+      "additionalProperties": false
+    },
+    "area": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Z]{7}$",
+          "description": "Unique identifier of the area object."
+        },
+        "type": {
+          "type": "string",
+          "enum": ["areas"]
+        },
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "code": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "code"
+          ],
+          "additionalProperties": false
+        },
+        "relationships": {
+          "type": "object",
+          "properties": {
+            "city": { "$ref": "#/definitions/relationshipCity" }
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "attributes",
+        "relationships"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
